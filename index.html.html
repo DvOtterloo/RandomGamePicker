@@ -1,0 +1,82 @@
+<DOCTYPE html>
+<html>
+	<head>
+		<title>Random Games Picker!</title>
+		<style>
+			body, html {
+				height:100%;				
+				margin:0;
+				padding:0;
+				font-family: arial, sans-serif;
+			}
+			#games {
+				width:100%;
+				height: 20%;
+				font-family:inherit;
+				font-size:150%;
+			}
+
+			#pick {
+				font-size:300px;
+				font-weight:bolder;
+				width:100%;
+				height:80%;			
+				display:block;				 
+			}
+		</style>
+	</head>
+	<body>
+
+	<textarea id="games">League Of Legends, CSGO, Starcraft 2, Path Of Exile, Age Of Empires 3, Anno 1404, Borderlands 2, Doom, Human Fall Flat, L4D2, Portal 2, Rocket League, Starbound, TF2, Trine 2</textarea>
+
+	<button onclick="roll()" id="pick">Run!</button>
+		<script>
+
+			function roll() {								
+				var games = parseGamesById("games");
+				var index = getRandomInteger(0, games.length - 1);
+				renderPick('pick', games[index]);
+			}	
+
+			function parseGamesById(id) {
+				var text = document.getElementById(id).value
+				return text.split(',')
+			}
+					
+			function renderPick(id, pick) {
+				var elem = document.getElementById(id);
+				var counter = parseInt(elem.innerHTML);
+				
+				elem.style.backgroundColor = getRandomRgb()
+				elem.style.color =  getRandomRgb()
+				
+				if (counter) {					
+					if (counter == 1) {
+						elem.innerHTML = pick;
+						return true; // to break the recursion
+					}
+					elem.innerHTML = counter - 1;			
+				} else {
+					elem.innerHTML = 5;
+				}					
+				setTimeout(function() {
+        			renderPick(id, pick);
+    			}, 1000);
+			}
+
+			function getRandomInteger(min, max) {
+			    return Math.floor(Math.random() * (max - min) ) + min;
+			}
+
+			function getRandomRgb() {
+				return "rgb(" +
+					getRandomInteger(0, 255) + ", " +
+					getRandomInteger(0, 255) + ", " +
+					getRandomInteger(0, 255) 
+				+ ")";
+			}
+
+		</script>
+
+	</body>
+</html>	
