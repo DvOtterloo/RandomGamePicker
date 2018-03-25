@@ -34,7 +34,7 @@
 
 			function roll() {								
 				var games = parseGamesById("games");
-				var index = getRandomInteger(0, games.length - 1);
+				var index = getRandomInteger(0, games.length);
 				renderPick('pick', games[index]);
 			}	
 
